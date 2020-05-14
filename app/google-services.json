@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "287404158512",
+    "firebase_url": "https://pinwifly-cec85.firebaseio.com",
+    "project_id": "pinwifly-cec85",
+    "storage_bucket": "pinwifly-cec85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287404158512:android:095512c33e84111b1547f5",
+        "android_client_info": {
+          "package_name": "com.example.pinwifly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287404158512-ham37tl82dvqnthleinp3u6io8apm7in.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pinwifly",
+            "certificate_hash": "91db57fbe8700be0b30f4da48b43f92ab0b6e996"
+          }
+        },
+        {
+          "client_id": "287404158512-f93kfu6ju4aqd69rj2cpsv30oi9b9amk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArYnLj9B36gS0EdXOnijcVYtY_qBzmoTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "287404158512-f93kfu6ju4aqd69rj2cpsv30oi9b9amk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
