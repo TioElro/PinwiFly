@@ -12,53 +12,124 @@
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <ImageView
-            android:src="@drawable/logo"
-            android:layout_width="200dp"
-            android:layout_height="200dp">
-            
-        </ImageView>
+
         
     </LinearLayout>
-    
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:weightSum="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.facebook.login.widget.LoginButton
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:id="@+id/login_button"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="#fff"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="5dp" />
 
-        <info.hoang8f.widget.FButton
-            android:id="@+id/botonregistro"
-            android:text="Registrarse"
-            android:textColor="@android:color/white"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/login_btn_google"
+                android:textAllCaps="false"
+                android:layout_width="360dp"
+                android:layout_height="60dp"
+                android:textSize="20sp"
+                android:drawableStart="@drawable/fui_ic_googleg_color_24dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Continuar con Google"
+                app:backgroundTint="#ffffff" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:fButtonColor="@color/botonregistro"
-            app:shadowColor="@android:color/white"
-            app:shadowEnabled="true"
-            app:shadowHeight="3dp"
-            app:cornerRadius="5dp">
+            android:layout_marginBottom="20dp">
 
-        </info.hoang8f.widget.FButton>
+            <info.hoang8f.widget.FButton
+                android:layout_marginTop="5dp"
+                android:id="@+id/botoncelular"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:text="Con tu número celular"
+                android:textColor="@android:color/white"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:fButtonColor="@color/botonlogin"
+                app:shadowColor="@android:color/white"
+                app:shadowEnabled="true"
+                app:shadowHeight="3dp"
+                app:cornerRadius="5dp">
 
-        <info.hoang8f.widget.FButton
-            android:id="@+id/botoniniciar"
-            android:text="Ya tengo cuenta"
-            android:textColor="@android:color/white"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:fButtonColor="@color/botonlogin"
-            app:shadowColor="@android:color/white"
-            app:shadowEnabled="true"
-            app:shadowHeight="3dp"
-            app:cornerRadius="5dp">
+            </info.hoang8f.widget.FButton>
 
-        </info.hoang8f.widget.FButton>
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/botonregistro"
+                android:text="Registrarse"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_margin="8dp"
+                app:fButtonColor="@color/botonregistro"
+                app:shadowColor="@android:color/white"
+                app:shadowEnabled="true"
+                app:shadowHeight="3dp"
+                app:cornerRadius="5dp">
+
+            </info.hoang8f.widget.FButton>
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/botoniniciar"
+                android:textSize="20sp"
+                android:text="Ya tengo cuenta"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:fButtonColor="@color/botonlogin"
+                app:shadowColor="@android:color/white"
+                app:shadowEnabled="true"
+                app:shadowHeight="3dp"
+                app:cornerRadius="5dp">
+
+            </info.hoang8f.widget.FButton>
+        </LinearLayout>
+
     </LinearLayout>
+    
 
 </RelativeLayout>

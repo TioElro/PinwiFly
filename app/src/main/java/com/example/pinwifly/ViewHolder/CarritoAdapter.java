@@ -21,29 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-class CarritoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public TextView tvcarritoname,tvcarritoprice;
-    public ImageView img_carrito_count;
-
-    private ItemClickListener itemClickListener;
-
-    public void setTvcarritoname(TextView tvcarritoname) {
-        this.tvcarritoname = tvcarritoname;
-    }
-
-    public CarritoViewHolder(@NonNull View itemView) {
-        super(itemView);
-        tvcarritoname = (TextView)itemView.findViewById(R.id.carrito_item_name);
-        tvcarritoprice = (TextView)itemView.findViewById(R.id.carrito_item_price);
-        img_carrito_count = (ImageView)itemView.findViewById(R.id.carrito_item_count);
-    }
-
-    @Override
-    public void onClick(View v) {
-
-    }
-}
 
 public class CarritoAdapter extends RecyclerView.Adapter<CarritoViewHolder>{
 
@@ -79,5 +57,19 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoViewHolder>{
     public int getItemCount() {
 
         return listData.size();
+    }
+
+    public Pedido getItem(int position){
+        return listData.get(position);
+    }
+
+    public void removeItem(int position){
+        listData.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Pedido item,int position){
+        listData.add(position,item);
+        notifyItemInserted(position);
     }
 }

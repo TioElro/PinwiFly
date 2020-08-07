@@ -2,66 +2,115 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
+    android:background="@drawable/pedidos"
     android:padding="6dp"
     tools:context=".Carrito">
-    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight=".1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Desliza para borrar"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textAlignment="center"
+                android:layout_margin="5dp"
+                />
+
+        </LinearLayout>
+
+
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listCarrito"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1.3">
+    </androidx.recyclerview.widget.RecyclerView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_alignParentBottom="true"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardCornerRadius="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight=".6"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
             <LinearLayout
-                android:layout_margin="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginRight="15dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="Total: "
-                    android:textSize="22sp"
+                    android:text="Total"
+                    android:textAlignment="center"
+                    android:textSize="50sp"
                     android:textColor="@android:color/white"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/tvtotal"
+                    android:textAlignment="center"
                     android:text="$10,000"
-                    android:textSize="24sp"
+                    android:textSize="50sp"
                     android:textColor="@android:color/white"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/botonrealizarpedido"
+                    android:text="Realizar Pedido"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    app:fButtonColor="@color/botonlogin"
+                    app:shadowColor="@android:color/white"
+                    app:shadowEnabled="true"
+                    app:shadowHeight="3dp"
+                    app:cornerRadius="5dp"/>
+
+
             </LinearLayout>
 
-            <info.hoang8f.widget.FButton
-                android:id="@+id/botonrealizarpedido"
-                android:text="Realizar Pedido"
-                android:textColor="@android:color/white"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_alignParentBottom="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:fButtonColor="@color/botonlogin"
-                app:shadowColor="@android:color/white"
-                app:shadowEnabled="true"
-                app:shadowHeight="3dp"
-                app:cornerRadius="5dp"/>
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </RelativeLayout>

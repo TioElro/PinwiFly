@@ -31,6 +31,6 @@ public class PedidoViewHolder extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View v) {
-        mItemClickListener.onClick(v,getAdapterPosition(),false);
+       // mItemClickListener.onClick(v,getAdapterPosition(),false);
     }
 }

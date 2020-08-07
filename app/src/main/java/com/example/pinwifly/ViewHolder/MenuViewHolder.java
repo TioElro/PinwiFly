@@ -20,7 +20,7 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public MenuViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        txtcategoriaName = (TextView)itemView.findViewById(R.id.menu_name);
+       // txtcategoriaName = (TextView)itemView.findViewById(R.id.menu_name);
         imageView = (ImageView)itemView.findViewById(R.id.menu_image);
 
         itemView.setOnClickListener(this);

@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/back"
     tools:context=".RegisterActivity">
+
     <LinearLayout
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:layout_marginLeft="14dp"
         android:layout_marginRight="14dp"
@@ -15,36 +18,26 @@
         android:layout_marginBottom="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edittextphone"
-            android:hint="Número de Celular"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:textSize="25sp"
-            android:inputType="phone"
-            android:text="2712145440"
-            app:met_baseColor="@android:color/white"
-            app:met_floatingLabel="highlight"
-            app:met_maxCharacters="11"
-            app:met_primaryColor="@android:color/white"
-            app:met_textColorHint="@android:color/white"
-            app:met_singleLineEllipsis="true">
 
-        </com.rengwuxian.materialedittext.MaterialEditText>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ya casi terminamos"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="28sp"
+            android:textColor="@android:color/white"/>
+
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edittextname"
             android:hint="Nombre"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textSize="27sp"
             android:inputType="text"
-            android:text="Ben Nicols"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="25"
@@ -56,14 +49,13 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/edittextemail"
             android:hint="Correo"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textSize="27sp"
             android:inputType="textEmailAddress"
-            android:text="ben@gmail.com"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="30"
@@ -72,17 +64,17 @@
             app:met_singleLineEllipsis="true">
 
         </com.rengwuxian.materialedittext.MaterialEditText>
+
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/edittextpass"
+            android:id="@+id/edittextcontra"
             android:hint="Contraseña"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textSize="27sp"
             android:inputType="textPassword"
-            android:text="Hachiman09"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="30"
@@ -91,23 +83,28 @@
             app:met_singleLineEllipsis="true">
 
         </com.rengwuxian.materialedittext.MaterialEditText>
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/botonregistro"
+            android:text="Registrar"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:fButtonColor="@color/botonregistro"
+            app:shadowColor="@android:color/white"
+            app:shadowEnabled="true"
+            app:shadowHeight="3dp"
+            app:cornerRadius="5dp">
+
+        </info.hoang8f.widget.FButton>
+
     </LinearLayout>
 
-    <info.hoang8f.widget.FButton
-        android:id="@+id/botonregistro"
-        android:text="Registrar"
-        android:textColor="@android:color/white"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:fButtonColor="@color/botonregistro"
-        app:shadowColor="@android:color/white"
-        app:shadowEnabled="true"
-        app:shadowHeight="3dp"
-        app:cornerRadius="5dp">
 
-    </info.hoang8f.widget.FButton>
+
 </RelativeLayout>

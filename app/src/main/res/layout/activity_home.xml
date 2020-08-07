@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/back"
+    android:background="@android:color/white"
     tools:openDrawer="start">
 
     <include
@@ -21,7 +21,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_home"
-
+        app:theme="@style/NavigationDrawerStyle"
 
         android:background="@color/cubrirfondo"
         app:itemTextColor="@android:color/white"

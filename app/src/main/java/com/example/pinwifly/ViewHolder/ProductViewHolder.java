@@ -12,8 +12,8 @@ import com.example.pinwifly.R;
 
 public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView txtproductName;
-    public ImageView producto_image;
+    public TextView txtproductName, txtproductPrice;
+    public ImageView producto_image,fav_image;
 
     private ItemClickListener itemClickListener;
 
@@ -22,6 +22,9 @@ public class ProductViewHolder extends RecyclerView.ViewHolder implements View.O
         super(itemView);
         txtproductName = (TextView)itemView.findViewById(R.id.product_name);
         producto_image = (ImageView)itemView.findViewById(R.id.product_image);
+        fav_image = (ImageView)itemView.findViewById(R.id.fav);
+
+        txtproductPrice = (TextView)itemView.findViewById(R.id.product_price);
 
         itemView.setOnClickListener(this);
     }

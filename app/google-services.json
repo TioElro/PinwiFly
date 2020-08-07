@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:287404158512:android:ac7ddb49d879bc161547f5",
+        "android_client_info": {
+          "package_name": "com.example.pinwiflier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287404158512-rv4l7ee4sqckpqllqotmfnge3inio72k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pinwiflier",
+            "certificate_hash": "91db57fbe8700be0b30f4da48b43f92ab0b6e996"
+          }
+        },
+        {
+          "client_id": "287404158512-f93kfu6ju4aqd69rj2cpsv30oi9b9amk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArYnLj9B36gS0EdXOnijcVYtY_qBzmoTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "287404158512-f93kfu6ju4aqd69rj2cpsv30oi9b9amk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:287404158512:android:095512c33e84111b1547f5",
         "android_client_info": {
           "package_name": "com.example.pinwifly"

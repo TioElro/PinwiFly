@@ -3,10 +3,13 @@ package com.example.pinwifly;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +26,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+
 public class ProductDetail extends AppCompatActivity {
 
     TextView product_name,product_price,product_description;
     ImageView product_image;
     CollapsingToolbarLayout mCollapsingToolbarLayout;
-    FloatingActionButton btncarrito;
+    Button btncarrito;
     ElegantNumberButton mNumberButton;
     Producto productoactual;
     String ProductoId="";
@@ -37,9 +45,23 @@ public class ProductDetail extends AppCompatActivity {
     DatabaseReference detalles;
 
 
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/fuente.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
+
         setContentView(R.layout.activity_product_detail);
 
         //Firebase
@@ -48,7 +70,9 @@ public class ProductDetail extends AppCompatActivity {
 
         //Iniciamos vista
         mNumberButton = (ElegantNumberButton)findViewById(R.id.number_button);
-        btncarrito = (FloatingActionButton)findViewById(R.id.btncarrito);
+        btncarrito = (Button)findViewById(R.id.btncarrito);
+
+
 
         btncarrito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +87,14 @@ public class ProductDetail extends AppCompatActivity {
                 Toast.makeText(ProductDetail.this,"Añadido al Carrito",Toast.LENGTH_SHORT).show();
             }
         });
+        mNumberButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+            @Override
+            public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                btncarrito.setText("Agregar $"+Double.parseDouble(productoactual.getPrice())*newValue);
+            }
+        });
+
+
 
         product_description= (TextView)findViewById(R.id.product_description);
         product_name= (TextView)findViewById(R.id.product_name);
@@ -92,6 +124,7 @@ public class ProductDetail extends AppCompatActivity {
                         .into(product_image);
                 mCollapsingToolbarLayout.setTitle(productoactual.getName());
                 product_price.setText(productoactual.getPrice());
+                btncarrito.setText("Agregar $"+Double.parseDouble(productoactual.getPrice()));
                 product_name.setText(productoactual.getName());
                 product_description.setText((productoactual.getDescription()));
             }

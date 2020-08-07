@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.pinwifly.Database.Database;
 import com.example.pinwifly.Interface.ItemClickListener;
 import com.example.pinwifly.Model.Producto;
 import com.example.pinwifly.ViewHolder.MenuViewHolder;
@@ -27,6 +29,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class ProductsList extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -44,14 +51,32 @@ public class ProductsList extends AppCompatActivity {
     List<String> sugerirLista = new ArrayList<>();
     MaterialSearchBar mMaterialSearchBar;
 
+    //Favoritos
+    Database localDB;
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/fuente.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
         setContentView(R.layout.activity_products_list);
         //Iniciamos firebase
         database = FirebaseDatabase.getInstance();
         productoslist = database.getReference("Producto");
+
+        //Local DB favoritos
+        localDB = new Database(this);
 
         //Cargamos productos
         recyclerView = (RecyclerView)findViewById(R.id.recycler_products);
@@ -171,14 +196,35 @@ public class ProductsList extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Producto, ProductViewHolder>(Producto.class,
                 R.layout.product_item,
                 ProductViewHolder.class,
-                productoslist.orderByChild("Categoria").equalTo(categoria)
+                productoslist.orderByChild("categoria").equalTo(categoria)
         ) {
 
             @Override
             protected void populateViewHolder(ProductViewHolder productViewHolder, Producto producto, int i) {
                 productViewHolder.txtproductName.setText(producto.getName());
+                productViewHolder.txtproductPrice.setText(String.format("Precio: $ %s",producto.getPrice().toString()));
                 Picasso.with(getBaseContext()).load(producto.getImage())
                         .into(productViewHolder.producto_image);
+
+                //Añadir favoritos
+                if(localDB.isFavorite(adapter.getRef(i).getKey())){
+                    productViewHolder.fav_image.setImageResource(R.drawable.ic_favorite_black_24dp);
+                }
+
+                //Click Favorito
+                productViewHolder.fav_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(!localDB.isFavorite(adapter.getRef(i).getKey())){
+                            localDB.addToFavorites(adapter.getRef(i).getKey());
+                            productViewHolder.fav_image.setImageResource(R.drawable.ic_favorite_black_24dp);
+                            Toast.makeText(ProductsList.this,""+producto.getName()+ "ha sido añadido a favoritos",Toast.LENGTH_SHORT).show();
+                        }else{
+                            localDB.removeToFavorites(adapter.getRef(i).getKey());
+                            productViewHolder.fav_image.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                        }
+                    }
+                });
 
                 final Producto local = producto;
                 productViewHolder.setItemClickListener(new ItemClickListener() {

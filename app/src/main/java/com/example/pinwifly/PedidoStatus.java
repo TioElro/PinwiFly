@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.pinwifly.Common.Common;
 import com.example.pinwifly.Model.Pedido;
@@ -13,6 +15,11 @@ import com.example.pinwifly.ViewHolder.PedidoViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class PedidoStatus extends AppCompatActivity {
 
@@ -25,8 +32,21 @@ public class PedidoStatus extends AppCompatActivity {
     DatabaseReference pedidos;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/fuente.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
+
         setContentView(R.layout.activity_pedido_status);
 
         //Firebase
@@ -38,8 +58,12 @@ public class PedidoStatus extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        cargarPedidos(Common.currentUser.getPhone());
-
+        if(getIntent().getStringExtra("userPhone") == null) {
+            cargarPedidos(Common.currentUser.getPhone());
+        }
+        else{
+            cargarPedidos(getIntent().getStringExtra("userPhone"));
+        }
 
     }
 

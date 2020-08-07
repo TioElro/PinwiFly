@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VerifyNumber">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/telefono"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="Primero necesitamos tu número de celular"
+        android:textColor="@android:color/black"
+        android:textSize="34sp" />
+
+    <LinearLayout
+        android:id="@+id/telefono"
+        android:orientation="vertical"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_centerInParent="true"
+        android:background="@android:color/white"
+        android:layout_marginBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="0dp"
+                android:layout_weight=".4"
+                android:layout_height="match_parent"
+                app:ccp_defaultLanguage="SPANISH"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_autoDetectLanguage="true"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edittexttelefono"
+                android:hint="Número de Celular"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="1.6"
+                android:layout_height="wrap_content"
+                android:textColorHint="@android:color/black"
+                android:textColor="@android:color/black"
+                android:textSize="27sp"
+                android:inputType="phone"
+                android:text=""
+                app:met_baseColor="@android:color/black"
+                app:met_floatingLabel="highlight"
+                app:met_maxCharacters="10"
+                app:met_primaryColor="@android:color/black"
+                app:met_textColorHint="@android:color/black"
+                app:met_singleLineEllipsis="true">
+
+            </com.rengwuxian.materialedittext.MaterialEditText>
+
+
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_marginBottom="10dp"
+            android:layout_above="@+id/telefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Te enviaremos un mensaje de texto a este número con un código de verificación."
+            android:layout_gravity="center_horizontal"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"/>
+
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/botonverificar"
+            android:textAllCaps="false"
+            android:text="Recibir código por SMS"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:fButtonColor="@color/botonregistro"
+            app:shadowColor="@android:color/white"
+            app:shadowEnabled="true"
+            app:shadowHeight="3dp"
+            app:cornerRadius="5dp">
+
+        </info.hoang8f.widget.FButton>
+
+
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Acepto recibir mi código de confirmación por SMS" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

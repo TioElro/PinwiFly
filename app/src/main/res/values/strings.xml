@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PinwiFly</string>
+    <string name="app_name">Jicanieve</string>
     <string name="slogan">Tu pedido puede volar.</string>
     <string name="title_activity_home">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -9,7 +9,14 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_categoria">Categoria</string>
+    <string name="facebook_app_id">3155377851207111</string>
+    <string name="fb_login_protocol_scheme">fb3155377851207111</string>
+
+
+    <string name="places_api_key">AIzaSyA39pIBGrw3ETkXaF_DeOfoTpadaM55mGQ</string>
+
+
+    <string name="menu_categoria">Menú</string>
     <string name="menu_pedido">Pedidos</string>
     <string name="menu_compra">Carrito</string>
     <string name="menu_salir">Cerrar Sesión</string>
@@ -17,4 +24,8 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="home_second">Home Second</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

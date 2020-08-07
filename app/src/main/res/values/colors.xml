@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00b8d4</color>
-    <color name="colorPrimaryDark">#0088a3</color>
-    <color name="colorAccent">#62ebff</color>
+    <color name="colorPrimary">#FE9402</color>
+    <color name="colorPrimaryDark">#FE9402</color>
+    <color name="colorAccent">#FE9402</color>
 
-    <color name="botonregistro">#0088a3</color>
-    <color name="botonlogin">#00b8d4</color>
+    <color name="botonregistro">#FF5722</color>
+    <color name="botonlogin">#FF9800</color>
 
     <color name="cubrirfondo">#7f333639</color>
     <color name="cubriractionbar">#0e0d0e</color>
+
+    <color name="bgDelete">#FF5722</color>
 </resources>

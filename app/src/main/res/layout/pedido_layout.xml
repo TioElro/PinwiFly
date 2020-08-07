@@ -27,6 +27,7 @@
                 android:layout_gravity="center_vertical|start"
                 android:textAllCaps="true"
                 android:textStyle="bold"
+                android:textSize="20sp"
                 android:text="#111111"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -37,6 +38,7 @@
                 android:layout_gravity="center_vertical|start"
                 android:textAllCaps="true"
                 android:textStyle="italic"
+                android:textSize="24sp"
                 android:text="Estado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -47,6 +49,7 @@
                 android:layout_gravity="center_vertical|start"
                 android:textAllCaps="true"
                 android:textStyle="italic"
+                android:textSize="20sp"
                 android:text="0123456789"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -57,6 +60,7 @@
                 android:layout_gravity="center_vertical|start"
                 android:textAllCaps="true"
                 android:textStyle="italic"
+                android:textSize="20sp"
                 android:text="Dirección"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

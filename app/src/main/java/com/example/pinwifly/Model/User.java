@@ -6,15 +6,26 @@ public class User {
     private String Password;
     private String Phone;
     private String Repartidor;
+    private String Foto;
 
     public User() {
     }
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password,String phone, String foto) {
         Name = name;
         Email = email;
         Password = password;
+        Phone = phone;
         Repartidor = "false";
+        Foto = foto;
+    }
+
+    public String getFoto() {
+        return Foto;
+    }
+
+    public void setFoto(String foto) {
+        Foto = foto;
     }
 
     public String getRepartidor() {
