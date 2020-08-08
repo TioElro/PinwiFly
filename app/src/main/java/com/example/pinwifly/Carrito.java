@@ -35,8 +35,10 @@ import com.example.pinwifly.Common.Common;
 import com.example.pinwifly.Database.Database;
 import com.example.pinwifly.Helper.RecyclerItemTouchHelper;
 import com.example.pinwifly.Interface.RecyclerItemTouchHelperListener;
+import com.example.pinwifly.Model.Direccion;
 import com.example.pinwifly.Model.Pedido;
 import com.example.pinwifly.Model.Peticion;
+import com.example.pinwifly.Model.User;
 import com.example.pinwifly.ViewHolder.CarritoAdapter;
 import com.example.pinwifly.ViewHolder.CarritoViewHolder;
 import com.google.android.gms.auth.api.Auth;
@@ -63,6 +65,8 @@ import com.google.android.libraries.places.widget.AutocompleteFragment;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -94,6 +98,8 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
     FButton btnrealizarpedido;
 
     List<Pedido> carrito=  new ArrayList<>();
+
+    List<Direccion> direccionuser=  new ArrayList<>();
     CarritoAdapter adapter;
 
     PlacesClient placesClient;
@@ -108,6 +114,8 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
     String direccion, latlng;
 
     RelativeLayout rootLayout;
+
+    Database localDB;
 
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
@@ -158,6 +166,7 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
         database = FirebaseDatabase.getInstance();
         requests = database.getReference("Pedidos");
 
+        localDB = new Database(this);
         //Init
         mRecyclerView = (RecyclerView)findViewById(R.id.listCarrito);
         mRecyclerView.setHasFixedSize(true);
@@ -244,11 +253,18 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
         alertDialog.setTitle("Un paso mas!");
 
 
+
         LayoutInflater inflater = this.getLayoutInflater();
         View order_address = inflater.inflate(R.layout.order_address,null);
 
         selecthouse = (RadioButton)order_address.findViewById(R.id.rbubicacionguardada);
         selectinmap = (RadioButton)order_address.findViewById(R.id.rbthisaddress);
+
+        if(!localDB.isHome()){
+            selecthouse.setVisibility(View.GONE);
+        }else{
+            selecthouse.setVisibility(View.VISIBLE);
+        }
 
         places_fragment = (AutocompleteSupportFragment)getSupportFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         places_fragment.setPlaceFields(placeFields);
@@ -268,6 +284,16 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
             public void onError(@NonNull Status status) {
                 //Log.e("Error Frag",status.getStatusMessage());
             }
+
+        });
+
+        selecthouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Direccion> direcciones = new Database(getBaseContext()).getDireccion();
+                etPlace.setText(direcciones.get(0).getDireccion());
+
+            }
         });
 
         selectinmap.setOnClickListener(new View.OnClickListener() {
@@ -281,13 +307,18 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
         alertDialog.setView(order_address);
         alertDialog.setIcon(R.drawable.ic_shopping_cart_black_24dp);
 
+        alertDialog.setCancelable(false);
+
         alertDialog.setPositiveButton("SI", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                List<Direccion> direcciones = new Database(getBaseContext()).getDireccion();
                 if(!selectinmap.isChecked()){
                     if(direccionenvio != null){
                         //Primero , obtenemos la direccion y comentario
                         direccion = direccionenvio.getAddress().toString();
+                    }else if(!direcciones.get(0).getDireccion().equals("")){
+                        direccion = direcciones.get(0).getDireccion();
                     }else{
                         Toast.makeText(Carrito.this, "Porfavor indique una dirección o escoja una opción", Toast.LENGTH_SHORT).show();
                         //Remover fragment
@@ -315,11 +346,20 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
                     pay.putExtra("cantidad",cantidad);
                     pay.putExtra("precio",tvTotalPrice.getText().toString());
                     pay.putExtra("latlng",String.format("%s,%s",Common.currentAddress.getLat(),Common.currentAddress.getLng()));
-                    startActivity(pay);
                     Common.currentAddress = null;
+                    startActivity(pay);
                     finish();
 
                 }else if(selecthouse.isChecked()){
+
+                    Intent pay = new Intent(Carrito.this,PaymentMethod.class);
+                    pay.putExtra("direccion",direcciones.get(0).getDireccion());
+                    pay.putExtra("cantidad",cantidad);
+                    pay.putExtra("precio",tvTotalPrice.getText().toString());
+                    pay.putExtra("latlng",String.format("%s,%s",direcciones.get(0).getLat(),direcciones.get(0).getLng()));
+                    startActivity(pay);
+                    Common.currentAddress = null;
+                    finish();
 
                 }else{
 
@@ -370,6 +410,13 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
     @Override
     protected void onResume() {
         super.onResume();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            User current = new User(user.getDisplayName(),user.getEmail(),null,user.getPhoneNumber(),user.getPhotoUrl().toString());
+            Common.currentUser = current;
+        } else {
+            finish();
+        }
         if(Common.currentAddress != null){
             places_fragment = (AutocompleteSupportFragment)getSupportFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
             places_fragment.setPlaceFields(placeFields);
@@ -377,6 +424,7 @@ public class Carrito extends AppCompatActivity implements GoogleApiClient.Connec
             etPlace.setText(Common.currentAddress.getDireccion());
             direccion = Common.currentAddress.getDireccion();
         }
+
     }
 
     @Override

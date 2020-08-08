@@ -2,6 +2,7 @@ package com.example.pinwifly;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -11,6 +12,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +22,7 @@ import android.location.Geocoder;
 import android.location.Location;
 
 import com.example.pinwifly.Common.Common;
+import com.example.pinwifly.Database.Database;
 import com.example.pinwifly.Model.Direccion;
 import com.example.pinwifly.Model.User;
 import com.google.android.gms.location.LocationListener;
@@ -30,6 +33,7 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,9 +91,12 @@ public class SelectLocation extends FragmentActivity implements OnMapReadyCallba
 
     TextView direccionmap;
     FButton confirmarbutton;
+    ImageView imgbutton;
     String address;
 
     Polyline currentpolyline;
+
+    Database localDB;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -113,8 +120,13 @@ public class SelectLocation extends FragmentActivity implements OnMapReadyCallba
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        localDB = new Database(this);
+
+
+
         direccionmap = (TextView)findViewById(R.id.addressmap);
         confirmarbutton = (FButton)findViewById(R.id.botonconfirmar);
+        imgbutton = (ImageView)findViewById(R.id.homeimg);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestRuntimePermission();
@@ -130,7 +142,43 @@ public class SelectLocation extends FragmentActivity implements OnMapReadyCallba
         confirmarbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
+            }
+        });
+
+
+
+        imgbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SelectLocation.this);
+                alertDialog.setTitle("Establecer como casa");
+                alertDialog.setMessage("¿Deseas guardar esta ubicación como tu casa?");
+                alertDialog.setIcon(R.drawable.ic_baseline_home_24_black);
+                alertDialog.setCancelable(false);
+
+                alertDialog.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!localDB.isHome()){
+                            localDB.addHomeAddress(Common.currentAddress.getDireccion(),Common.currentAddress.getLat(),Common.currentAddress.getLng());
+                        }else{
+                            localDB.updateHomeAddress(Common.currentAddress.getDireccion(),Common.currentAddress.getLat(),Common.currentAddress.getLng());
+                        }
+                        }
+                });
+
+                alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                alertDialog.show();
+
             }
         });
 
@@ -177,6 +225,7 @@ public class SelectLocation extends FragmentActivity implements OnMapReadyCallba
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(20.0f));
 
                 Direccion direccion = new Direccion(address,latitude,longitude);
+
                 Common.currentAddress = direccion;
 
             } else {

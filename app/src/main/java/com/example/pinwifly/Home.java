@@ -18,6 +18,7 @@ import com.example.pinwifly.Database.Database;
 import com.example.pinwifly.Interface.ItemClickListener;
 import com.example.pinwifly.Model.Categoria;
 import com.example.pinwifly.Model.Pedido;
+import com.example.pinwifly.Model.User;
 import com.example.pinwifly.Service.ListenPedido;
 import com.example.pinwifly.ViewHolder.MenuViewHolder;
 import com.facebook.login.LoginManager;
@@ -26,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -176,10 +178,19 @@ public class Home extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
         fab.setCount(new Database(this).getCountCarrito());
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            User current = new User(user.getDisplayName(),user.getEmail(),null,user.getPhoneNumber(),user.getPhotoUrl().toString());
+            Common.currentUser = current;
+        } else {
+            finish();
+        }
     }
 
     private void cargarmenu() {

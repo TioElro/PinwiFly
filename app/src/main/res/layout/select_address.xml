@@ -9,6 +9,7 @@
 
     >
 
+
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
@@ -18,35 +19,58 @@
             android:name="com.google.android.gms.maps.SupportMapFragment" >
 
 
-            <TextView
-                android:id="@+id/addressmap"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_gravity="center_horizontal|start"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textAlignment="center"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="Enviar a: "/>
+                android:padding="20dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                >
+
+                <TextView
+                    android:id="@+id/addressmap"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_gravity="center_horizontal|start"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:text="Enviar a: "/>
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/homeimg"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_baseline_home_24"/>
+
+            </LinearLayout>
 
 
-            <info.hoang8f.widget.FButton
-                android:id="@+id/botonconfirmar"
-                android:layout_margin="20dp"
-                android:textSize="18sp"
-                android:textAllCaps="false"
-                android:text="Confirmar dirección"
-                android:textColor="@android:color/white"
-                android:layout_width="170dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal|bottom"
-                app:fButtonColor="@color/botonlogin"
-                app:shadowColor="@android:color/white"
-                app:shadowEnabled="true"
-                app:shadowHeight="3dp"
-                app:cornerRadius="5dp"/>
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/botonconfirmar"
+                    android:layout_margin="20dp"
+                    android:textSize="18sp"
+                    android:textAllCaps="false"
+                    android:text="Confirmar dirección"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_width="200dp"
+                    android:layout_height="60dp"
+                    app:fButtonColor="@color/botonlogin"
+                    app:shadowColor="@android:color/white"
+                    app:shadowEnabled="true"
+                    app:shadowHeight="3dp"
+                    app:cornerRadius="5dp"/>
+
+
         </fragment>
+
+
 
 
 

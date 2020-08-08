@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteQuery;
 import android.database.sqlite.SQLiteQueryBuilder;
 
+import com.example.pinwifly.Model.Direccion;
 import com.example.pinwifly.Model.Pedido;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -62,6 +63,52 @@ public class Database extends SQLiteAssetHelper {
         String query= String.format("DELETE FROM OrderDetail");
         db.execSQL(query);
 
+    }
+
+    public boolean isHome(){
+        SQLiteDatabase db = getReadableDatabase();
+        String query= String.format("SELECT * FROM Home");
+        Cursor cursor = db.rawQuery(query,null,null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
+    public List<Direccion> getDireccion(){
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        String[] sqlselect={"Address","Lat","Lng"};
+        String sqltable="Home";
+
+        qb.setTables(sqltable);
+        Cursor c = qb.query(db,sqlselect,null,null,null,null,null);
+
+        final List<Direccion> result = new ArrayList<>();
+        if(c.moveToFirst()){
+            do{
+                result.add(new Direccion(c.getString(c.getColumnIndex("Address")),
+                        Double.parseDouble(c.getString(c.getColumnIndex("Lat"))),
+                        Double.parseDouble(c.getString(c.getColumnIndex("Lng")))
+                ));
+            }while (c.moveToNext());
+        }
+        return result;
+    }
+
+    public void addHomeAddress(String address,Double lat,Double lng){
+        SQLiteDatabase db = getReadableDatabase();
+        String query= String.format("INSERT INTO Home (Address,Lat,Lng) VALUES ('%s','%s','%s');",address,lat.toString(),lng.toString());
+        db.execSQL(query);
+    }
+
+    public void updateHomeAddress(String address,Double lat,Double lng){
+        SQLiteDatabase db = getReadableDatabase();
+        String query= String.format("UPDATE Home SET Address='%s', Lat='%s', Lng='%s';",address,lat.toString(),lng.toString());
+        db.execSQL(query);
     }
 
     //Favoritos
